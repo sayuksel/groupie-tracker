@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../stylesheets/style.css">
+    <link rel="stylesheet" href="../stylesheets/profile_styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    <title>Profile</title>
+</head>
+<body>
+    
+    <header class="main_page_header"> <a href="/" class="home_link">Artists</a></header>
+
+<div class="all_info">
+
+    <div class="band_info"> <span class="band_Name">{{.Name}}</span>
+
+        <img src="{{.Image}}" class="log_profile"/>
+        <div class="members_head"> Creation Date:{{ .CreationDate}}  <span class="FA_DATE"> First Album: {{.FirstAlbum}} </span><br> Members:</div>
+
+    <ul class="members_list">
+    {{range .Members}}
+    <li>{{.}}</li>
+    {{end}}
+    </ul>
+</div>
+<div class="sch_info">
+    <table class="sch">
+        <tr>
+            <th>Country</th>
+            <th>Location</th>
+            <th>Date</th>
+        </tr>
+       <!-- Iterate over each item in the Date_Locat slice -->
+{{ range .Date_Locat }}
+<tr>
+    <!-- Access and display the second element of the current item as the country -->
+    <td>{{ index . 1 }} </td>
+    <!-- Access and display the first element of the current item as the location -->
+    <td>{{ index . 0 }}</td>    
+    <!-- Prepare to concatenate and display all date elements, starting from the third element -->
+    <td>
+        <!-- Initialize an empty string variable to accumulate dates (currently not used correctly) -->
+        {{ $dates := "" }}       
+        <!-- Iterate over each element in the current item with index and value -->
+        {{ range $index, $date := . }}            
+            <!-- Only process elements with index greater than 1 (i.e., the dates) -->
+            {{ if gt $index 1 }}   
+                <!-- Display the date followed by a line break -->
+                {{ $date }}<br>
+            {{ end }}
+        {{ end }}
+    </td>
+</tr>
+{{ end }}
+    </table>
+</div>
+    </div>
+
+</body>
+</html>
